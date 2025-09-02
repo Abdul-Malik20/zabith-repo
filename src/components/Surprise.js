@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Surprise.css";
 import { FaPlay, FaPause } from "react-icons/fa";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const quotes = [
   "You deserve all the happiness!",
@@ -25,14 +27,37 @@ const Surprise = () => {
   const [hearts] = useState(generateHearts());
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+    // Show modal on load
+    const modal = new window.bootstrap.Modal(
+      document.getElementById("soundModal")
+    );
+    modal.show();
   }, []);
 
+  const enableSound = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+    }
+    if (audioRef.current) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+    const modal = window.bootstrap.Modal.getInstance(
+      document.getElementById("soundModal")
+    );
+    modal.hide();
+  };
+
   const toggleMusic = () => {
-    if (isPlaying) audioRef.current.pause();
-    else audioRef.current.play();
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
     setIsPlaying(!isPlaying);
   };
 
@@ -40,11 +65,12 @@ const Surprise = () => {
     <div className="surprise-page">
       {/* Background Video */}
       <video
+        ref={videoRef}
         className="bg-video"
         src="/bday.mp4"
         autoPlay
         loop
-        
+        muted
         playsInline
       ></video>
 
@@ -59,9 +85,7 @@ const Surprise = () => {
             animationDuration: h.duration,
             animationDelay: h.delay
           }}
-        >
-          
-        </span>
+        ></span>
       ))}
 
       {/* Content Overlay */}
@@ -72,8 +96,8 @@ const Surprise = () => {
           <h2 className="letter-title">A Special Letter for You 💌</h2>
           <p className="letter-content">
             Dear Ayisha Mubeena,<br />
-            Wishing you a day filled with love, laughter, and endless joy. 
-            May all your dreams come true and every moment be as special as you are. 
+            Wishing you a day filled with love, laughter, and endless joy. May
+            all your dreams come true and every moment be as special as you are.
             Keep shining and smiling, today and always!
           </p>
           <p className="surprise-quote">✨ {quote} ✨</p>
@@ -90,10 +114,47 @@ const Surprise = () => {
         </div>
 
         {/* Music Button */}
-        <button className="music-btn mt-5" onClick={toggleMusic}>
+        <button className="music-btn mt-5 btn btn-primary" onClick={toggleMusic}>
           {isPlaying ? <FaPause /> : <FaPlay />}
         </button>
         <audio ref={audioRef} src="/music.mp3" loop />
+      </div>
+
+      {/* Bootstrap Modal */}
+      <div
+        className="modal fade"
+        id="soundModal"
+        tabIndex="-1"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content text-center">
+            <div className="modal-header">
+              <h5 className="modal-title">Enable Sound?</h5>
+            </div>
+            <div className="modal-body">
+              <p>
+                Do you want to enable background music for a better surprise
+                experience? 🎶
+              </p>
+            </div>
+            <div className="modal-footer d-flex justify-content-center">
+              <button
+                className="btn btn-success"
+                onClick={enableSound}
+                data-bs-dismiss="modal"
+              >
+                Yes
+              </button>
+              <button
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
