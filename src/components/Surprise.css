@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&family=Dancing+Script:wght@500&display=swap');
+
+.surprise-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background video */
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Floating Hearts */
+.heart {
+  position: absolute;
+  top: -50px;
+  animation-name: floatHeart;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  pointer-events: none;
+  color: #ffdde1;
+}
+
+@keyframes floatHeart {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+}
+
+/* Content Overlay */
+.surprise-content {
+  position: relative;
+  z-index: 10;
+  color: #fff;
+  max-width: 1000px;
+  width: 100%;
+  padding: 2rem;
+}
+
+.surprise-title {
+  font-family: "Lobster Two", cursive;
+  font-size: 4rem;
+  text-shadow: 2px 2px 20px rgba(0,0,0,0.6);
+}
+
+/* Letter Pad */
+.letter-pad {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  margin: 0 auto;
+  font-family: 'Dancing Script', cursive;
+  line-height: 1.6;
+}
+
+.letter-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #e91e63;
+}
+
+.letter-content {
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.surprise-quote {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-top: 1rem;
+  text-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+/* Images */
+.image-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.surprise-img-container {
+  flex: 1 1 250px;
+  max-width: 300px;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.surprise-img-container:hover {
+  transform: scale(1.08);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.surprise-img {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+}
+
+/* Music Button */
+.music-btn {
+  font-size: 1.5rem;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.music-btn:hover {
+  background: rgba(255,255,255,0.35);
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .surprise-title { font-size: 2.5rem; }
+  .letter-content { font-size: 1rem; }
+  .surprise-quote { font-size: 1.2rem; }
+}
