@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Surprise.css";
 import { FaPlay, FaPause } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import { Modal } from "bootstrap";  // ✅ added
+
 
 const quotes = [
   "You deserve all the happiness!",
@@ -31,10 +32,8 @@ const Surprise = () => {
 
   useEffect(() => {
     setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
-    // Show modal on load
-    const modal = new window.bootstrap.Modal(
-      document.getElementById("soundModal")
-    );
+    const modalEl = document.getElementById("soundModal");
+    const modal = new Modal(modalEl);  // ✅ fixed
     modal.show();
   }, []);
 
@@ -42,13 +41,9 @@ const Surprise = () => {
     if (videoRef.current) {
       videoRef.current.muted = false;
     }
-    if (audioRef.current) {
-      audioRef.current.play();
-      setIsPlaying(true);
-    }
-    const modal = window.bootstrap.Modal.getInstance(
-      document.getElementById("soundModal")
-    );
+
+    const modalEl = document.getElementById("soundModal");
+    const modal = Modal.getInstance(modalEl);  // ✅ fixed
     modal.hide();
   };
 
