@@ -64,10 +64,16 @@ const Surprise = () => {
         className="bg-video"
         src="/bday.mp4"
         autoPlay
-        
         muted
         playsInline
+        onEnded={() => {
+          if (audioRef.current) {
+            audioRef.current.play();
+            setIsPlaying(true);
+          }
+        }}
       ></video>
+
 
       {/* Floating Hearts */}
       {hearts.map((h) => (
