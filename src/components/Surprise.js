@@ -64,7 +64,7 @@ const Surprise = () => {
         className="bg-video"
         src="/bday.mp4"
         autoPlay
-        loop
+        
         muted
         playsInline
       ></video>
